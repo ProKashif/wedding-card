@@ -180,21 +180,76 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
 @keyframes ornSpin{to{transform:rotate(360deg)}}
 
 /* FAMILIES */
-.families{
-  display:grid;grid-template-columns:1fr 1fr;gap:24px;
-  padding:18px 30px;animation:fadeIn .8s 2s both;opacity:0;
+.families-section{
+  padding:20px 28px;animation:fadeIn .8s 2s both;opacity:0;
 }
-.fam{text-align:center;padding:16px 10px;
-  background:linear-gradient(135deg,rgba(212,168,83,.03),rgba(212,168,83,.08));
-  border-radius:12px;border:1px solid rgba(212,168,83,.15);
+.fam-block{
+  text-align:center;margin-bottom:20px;position:relative;
+  padding:28px 24px 22px;
+  background:linear-gradient(160deg,rgba(212,168,83,.04) 0%,rgba(212,168,83,.1) 50%,rgba(212,168,83,.04) 100%);
+  border-radius:18px;
+  border:1px solid rgba(212,168,83,.2);
+  overflow:hidden;
 }
+.fam-block::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:60px;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  border-radius:0 0 4px 4px;
+}
+.fam-block::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:40px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
+  border-radius:4px 4px 0 0;
+}
+.fam-block .corner{
+  position:absolute;width:20px;height:20px;opacity:.35;
+}
+.fam-block .corner svg{width:100%;height:100%}
+.fam-block .c-tl{top:6px;left:6px}
+.fam-block .c-tr{top:6px;right:6px;transform:scaleX(-1)}
+.fam-block .c-bl{bottom:6px;left:6px;transform:scaleY(-1)}
+.fam-block .c-br{bottom:6px;right:6px;transform:scale(-1)}
 .fam-label{
-  font-family:'Cinzel',serif;font-weight:600;font-size:.65rem;
-  letter-spacing:3px;text-transform:uppercase;color:var(--burgundy);
-  margin-bottom:10px;padding-bottom:8px;
-  border-bottom:1px solid rgba(212,168,83,.3);
+  font-family:'Cinzel',serif;font-weight:600;font-size:.62rem;
+  letter-spacing:4px;text-transform:uppercase;color:var(--burgundy);
+  margin-bottom:14px;position:relative;display:inline-block;
+  padding:0 16px;
 }
-.fam-names{font-family:'Lora',serif;font-size:.88rem;color:var(--text);line-height:1.9}
+.fam-label::before,.fam-label::after{
+  content:'✦';position:absolute;top:50%;transform:translateY(-50%);
+  color:var(--gold);font-size:.5rem;
+}
+.fam-label::before{left:-2px}
+.fam-label::after{right:-2px}
+.fam-divider{
+  width:80px;height:1px;margin:0 auto 14px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.fam-names-grid{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:6px 10px;
+}
+.fam-name{
+  font-family:'Lora',serif;font-size:.88rem;color:var(--text);
+  padding:5px 14px;
+  background:linear-gradient(135deg,rgba(255,255,255,.5),rgba(212,168,83,.06));
+  border:1px solid rgba(212,168,83,.15);
+  border-radius:20px;
+  transition:all .3s ease;
+  animation:namePopIn .5s both;
+}
+.fam-name:hover{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:#fff;transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(212,168,83,.3);
+}
+.fam-closing{
+  margin-top:12px;
+  font-family:'Great Vibes',cursive;font-size:1.15rem;
+  color:var(--gold);
+}
+@keyframes namePopIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
 
 /* EVENTS */
 .events-title{
@@ -460,21 +515,45 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
 
   <div class="ornament"><div class="orn-line"></div><div class="orn-center"><div class="orn-diamond"></div><div class="orn-circle"></div></div><div class="orn-line"></div></div>
 
-  <div class="families">
-    <div class="fam">
+  <div class="families-section">
+    <!-- Honourable Family Members -->
+    <div class="fam-block">
+      <span class="corner c-tl"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <span class="corner c-tr"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <span class="corner c-bl"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <span class="corner c-br"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
       <div class="fam-label">Honourable Family Members</div>
-      <div class="fam-names">Begum Haji Ahmed<br>Begum Asad Ahmed<br>Begum Abdul Hameed<br>Begum Abdul Majeed<br>Begum Abdul Hanif<br>Begum Muhammad Saleem</div>
+      <div class="fam-divider"></div>
+      <div class="fam-names-grid">
+        <span class="fam-name" style="animation-delay:2.0s">Begum Asad Ahmed</span>
+        <span class="fam-name" style="animation-delay:2.05s">Asad Ahmed</span>
+        <span class="fam-name" style="animation-delay:2.1s">Israr Ahmed</span>
+        <span class="fam-name" style="animation-delay:2.2s">Ibrar Ahmed</span>
+        <span class="fam-name" style="animation-delay:2.3s">Haji Hassan Ali</span>
+        <span class="fam-name" style="animation-delay:2.4s">Haji Saad Ahmed</span>
+      </div>
     </div>
-    <div class="fam">
-      <div class="fam-label">Respected Elders</div>
-      <div class="fam-names">Asrar Ahmed &middot; Ibrar Ahmed<br>Haji Hassan Ali &middot; Haji Saad Ahmed<br>Anas Rafiq<br>Begum Muhammad Arshad<br>Begum Wazir Ali<br>Begum Khalil Ahmed</div>
-    </div>
-  </div>
 
-  <div class="families" style="padding-top:0;animation-delay:2.1s">
-    <div class="fam" style="grid-column:1/-1">
-      <div class="fam-label">Special Invitees</div>
-      <div class="fam-names">Begum Muhammad Arshad &middot; Begum Shahid Naeem &middot; Begum Muhammad Abid Tahir<br>All Dear Relatives, Friends &amp; Well-Wishers</div>
+    <!-- Respected Elders -->
+    <div class="fam-block">
+      <span class="corner c-tl"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <span class="corner c-tr"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <span class="corner c-bl"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <span class="corner c-br"><svg viewBox="0 0 20 20"><path d="M2 2 Q2 10 10 10" stroke="#d4a853" stroke-width="1.5" fill="none"/><circle cx="2" cy="2" r="1.5" fill="#d4a853"/></svg></span>
+      <div class="fam-label">Respected Elders</div>
+      <div class="fam-divider"></div>
+      <div class="fam-names-grid">
+        <span class="fam-name" style="animation-delay:2.5s">Begum Muhammad Saleem</span>
+        <span class="fam-name" style="animation-delay:2.6s">Begum Abdul Hameed</span>
+        <span class="fam-name" style="animation-delay:2.7s">Begum Abdul Majeed</span>
+        <span class="fam-name" style="animation-delay:2.8s">Begum Abdul Hanif</span>
+        <span class="fam-name" style="animation-delay:2.9s">Begum Muhammad Arshad</span>
+        <span class="fam-name" style="animation-delay:3.0s">Begum Asghar Ali</span>
+        <span class="fam-name" style="animation-delay:3.1s">Begum Shahid Naeem</span>
+        <span class="fam-name" style="animation-delay:3.2s">Begum Muhammad Abid Tahir</span>
+        <span class="fam-name" style="animation-delay:3.3s">Begum Shakeel Ahmed</span>
+      </div>
+      <div class="fam-closing">& All Dear Relatives, Friends & Well-Wishers</div>
     </div>
   </div>
 
