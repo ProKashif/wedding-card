@@ -175,6 +175,10 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
   opacity:0;transform:scale(.85) translateY(60px);
 }
 @keyframes cardReveal{to{opacity:1;transform:none}}
+/* Ensure all content sections sit above watermark */
+.invitation>*:not(.ayah-watermark):not(.inner-frame){position:relative;z-index:2}
+/* Ensure all card children sit above watermark */
+.invitation>*:not(.ayah-watermark):not(.inner-frame){position:relative;z-index:1}
 
 .invitation::before,.invitation::after{
   content:'';position:absolute;pointer-events:none;z-index:10;border-radius:20px;
@@ -201,6 +205,43 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
 @keyframes titleReveal{from{opacity:0;transform:scale(.8);letter-spacing:8px}to{opacity:1;transform:none;letter-spacing:0}}
 .title-line{width:0;height:2px;margin:12px auto 0;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);animation:lineGrow 1s 1.4s both;position:relative}
 @keyframes lineGrow{to{width:200px}}
+
+/* QURANIC AYAH */
+.ayah-section{
+  text-align:center;padding:20px 28px 10px;
+  animation:fadeIn .8s 1.1s both;opacity:0;
+}
+.ayah-box{
+  position:relative;padding:20px 24px;
+  background:linear-gradient(135deg,rgba(212,168,83,.04),rgba(212,168,83,.1),rgba(212,168,83,.04));
+  border-radius:16px;
+  border:1px solid rgba(212,168,83,.2);
+}
+.ayah-box::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:50px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.ayah-box::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:50px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.ayah-arabic{
+  font-size:1.35rem;line-height:2;
+  color:var(--burgundy);margin-bottom:12px;
+  direction:rtl;
+}
+.ayah-english{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:.82rem;color:var(--text2);line-height:1.7;
+  margin-bottom:8px;
+}
+.ayah-ref{
+  font-family:'Cinzel',serif;font-weight:400;
+  font-size:.55rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);
+}
 
 /* COUPLE */
 .couple-area{padding:20px 20px 0;text-align:center;position:relative;overflow:visible}
@@ -291,9 +332,63 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
 .ph:hover{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;transform:translateY(-2px);box-shadow:0 8px 25px rgba(212,168,83,.4)}
 
 /* FOOTER */
-.footer{text-align:center;padding:10px 30px 28px;animation:fadeIn .8s 3.3s both;opacity:0}
+.footer{text-align:center;padding:10px 30px 10px;animation:fadeIn .8s 3.3s both;opacity:0}
 .footer p{font-family:'Lora',serif;font-style:italic;font-size:.85rem;color:var(--text2);line-height:1.6}
 .footer .gold{color:var(--gold)}
+
+/* BACKGROUND AYAH WATERMARK */
+.ayah-watermark{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  pointer-events:none;z-index:1;overflow:hidden;
+}
+.ayah-watermark-text{
+  position:absolute;
+  top:-30%;left:-30%;
+  width:160%;height:160%;
+  font-size:2.8rem;line-height:2.2;
+  color:rgba(122,30,63,.045);
+  direction:rtl;text-align:center;
+  user-select:none;
+  transform:rotate(-20deg);
+  word-spacing:20px;
+  letter-spacing:3px;
+  word-break:break-word;
+}
+
+/* DOWNLOAD BUTTON */
+.download-section{
+  text-align:center;padding:5px 30px 25px;
+  animation:fadeIn .8s 3.4s both;opacity:0;
+}
+.download-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Cinzel',serif;font-weight:600;font-size:.7rem;
+  letter-spacing:3px;text-transform:uppercase;
+  color:#fff;padding:14px 36px;
+  background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dark));
+  border:2px solid var(--gold);border-radius:50px;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:all .4s ease;
+  box-shadow:0 6px 25px rgba(0,0,0,.3);
+}
+.download-btn:hover{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--burgundy-dark);
+  transform:translateY(-3px);
+  box-shadow:0 10px 35px rgba(212,168,83,.4);
+}
+.download-btn::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transition:left .6s;
+}
+.download-btn:hover::after{left:150%}
+.download-btn svg{width:18px;height:18px;fill:currentColor}
+.download-loading{
+  display:none;
+  font-family:'Lora',serif;font-style:italic;font-size:.8rem;
+  color:var(--gold);margin-top:8px;
+}
 
 .confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100}
 .music-btn{position:fixed;bottom:20px;right:20px;z-index:99;width:50px;height:50px;border-radius:50%;border:2px solid var(--gold);background:rgba(26,10,18,.9);color:var(--gold-light);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);transition:all .3s;animation:fadeIn .8s 3.5s both;opacity:0}
@@ -367,6 +462,22 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
 <div class="invitation-scene" id="invitationScene">
   <div class="invitation">
     <div class="inner-frame"></div>
+
+    <!-- Ayah watermark in background -->
+    <div class="ayah-watermark">
+      <div class="ayah-watermark-text">
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ❖
+      </div>
+    </div>
     <div class="header">
       <div class="header-glow"></div>
       <div class="bismillah-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
@@ -374,6 +485,15 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
       <div class="header-subtitle">You are cordially invited to the</div>
       <div class="header-title">Wedding Celebration</div>
       <div class="title-line"></div>
+    </div>
+
+    <!-- Quranic Ayah about Marriage - Surah Ar-Rum 30:21 -->
+    <div class="ayah-section">
+      <div class="ayah-box">
+        <div class="ayah-arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ</div>
+        <div class="ayah-english">"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts. Verily in that are signs for those who reflect."</div>
+        <div class="ayah-ref">Surah Ar-Rum &middot; Verse 21</div>
+      </div>
     </div>
 
     <div class="couple-area">
@@ -487,9 +607,9 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
         <div class="fam-divider"></div>
         <div class="fam-names-grid">
           <span class="fam-name" style="animation-delay:2.0s">Begum Asad Ahmed</span>
-          <span class="fam-name" style="animation-delay:2.05s">Asad Ahmed</span>
           <span class="fam-name" style="animation-delay:2.1s">Israr Ahmed</span>
           <span class="fam-name" style="animation-delay:2.2s">Ibrar Ahmed</span>
+          <span class="fam-name" style="animation-delay:2.25s">Muhammad Anas Rafique</span>
           <span class="fam-name" style="animation-delay:2.3s">Haji Hassan Ali</span>
           <span class="fam-name" style="animation-delay:2.4s">Haji Saad Ahmed</span>
         </div>
@@ -541,7 +661,8 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
         <div class="ev-grid">
           <div class="ev-item"><svg class="ev-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Saturday, 9 May 2026</span></div>
           <div class="ev-item"><svg class="ev-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>02:00 PM</span></div>
-          <div class="ev-item full"><svg class="ev-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Grand City Marquee, Pul Nehr Khushab Road, Sargodha</span></div>
+          <div class="ev-item full"><svg class="ev-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Grand City Banquet, Cantonment, Sargodha, Pakistan &nbsp;<a href="https://www.google.com/maps/search/Grand+City+Banquet+3MR4%2BH5C+Cantonment+Sargodha+Pakistan" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:3px 12px;background:linear-gradient(135deg,#d4a853,#f0d48a);color:#4a0e25;border-radius:14px;font-size:.7rem;text-decoration:none;font-family:Cinzel,serif;letter-spacing:1px;font-weight:600;white-space:nowrap;vertical-align:middle;transition:all .3s"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>Get Directions</a></span></div>
+          <div class="ev-item full" style="justify-content:center;margin-top:6px"><a href="https://www.google.com/maps/search/?api=1&query=Grand+City+Banquet+3MR4%2BH5C+Cantonment+Sargodha+Pakistan" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-family:Cinzel,serif;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dark));padding:8px 20px;border-radius:20px;text-decoration:none;border:1px solid var(--gold);transition:all .3s;box-shadow:0 3px 12px rgba(0,0,0,.2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Get Directions</a></div>
         </div>
       </div>
     </div>
@@ -570,6 +691,15 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;poi
     <div class="footer">
       <p><span class="gold">&#10022;</span>&ensp;Please be punctual &mdash; your presence is the greatest gift&ensp;<span class="gold">&#10022;</span></p>
     </div>
+
+    <div class="download-section">
+      <button class="download-btn" id="downloadBtn" onclick="downloadCard()">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+        Download Invitation
+      </button>
+      <div class="download-loading" id="downloadLoading">Preparing your invitation...</div>
+    </div>
+
   </div>
 </div>
 
@@ -699,6 +829,82 @@ var triggerConfetti;
     playing=true;btn.classList.add('playing');btn.textContent='⏸';playNote();
   });
 })();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+function downloadCard(){
+  const btn=document.getElementById('downloadBtn');
+  const loading=document.getElementById('downloadLoading');
+  const card=document.querySelector('.invitation');
+  const dlSection=document.querySelector('.download-section');
+  const musicBtn=document.getElementById('musicBtn');
+  
+  btn.style.pointerEvents='none';btn.style.opacity='.5';
+  loading.style.display='block';
+
+  // Hide elements not needed in download
+  dlSection.style.display='none';
+  musicBtn.style.display='none';
+
+  // Force all animated elements visible
+  const override=document.createElement('style');
+  override.id='dl-fix';
+  override.textContent=`
+    .invitation,.invitation *{animation-play-state:paused!important}
+    .invitation [style*="animation-delay"]{opacity:1!important}
+    .invitation .names,.invitation .ornament,.invitation .families-section,
+    .invitation .events-title,.invitation .ev,.invitation .countdown-wrap,
+    .invitation .rsvp,.invitation .footer,.invitation .ayah-section,
+    .invitation .couple-area,.invitation .fam-name{
+      opacity:1!important;transform:none!important;
+    }
+  `;
+  document.head.appendChild(override);
+
+  // Scroll to top of card for clean capture
+  window.scrollTo(0,0);
+
+  setTimeout(()=>{
+    html2canvas(card,{
+      scale:2,
+      useCORS:true,
+      backgroundColor:'#fef9f0',
+      logging:false,
+      allowTaint:true,
+      scrollY:-window.scrollY
+    }).then(canvas=>{
+      // Check if canvas has meaningful content (not blank)
+      const ctx=canvas.getContext('2d');
+      const data=ctx.getImageData(canvas.width/2,canvas.height/2,1,1).data;
+      const isBlank=data[0]===0&&data[1]===0&&data[2]===0&&data[3]===0;
+      
+      if(!isBlank){
+        const link=document.createElement('a');
+        link.download='Wedding-Invitation-Kashif-Ahmed.png';
+        link.href=canvas.toDataURL('image/png',0.95);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Fallback
+        window.print();
+      }
+      cleanup();
+    }).catch(()=>{
+      cleanup();
+      window.print();
+    });
+  },500);
+
+  function cleanup(){
+    const s=document.getElementById('dl-fix');
+    if(s)s.remove();
+    btn.style.pointerEvents='';btn.style.opacity='';
+    loading.style.display='none';
+    dlSection.style.display='';
+    musicBtn.style.display='';
+  }
+}
 </script>
 </body>
 </html>
